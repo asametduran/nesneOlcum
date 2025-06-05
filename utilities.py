@@ -45,7 +45,13 @@ def reorder(myPoints):
     return myPointsNew
 
 def warpImg(img, points, w, h):
-    print(points)
-    reorder(points)
+  
+    print(points) #[[ 891  187]]
+    # [[ 146  201]]
+    #
+    # [[ 117 1669]]
+    #
+    # [[ 934 1667]]]
+    #   (4, 1, 2)
 
-    
+    reorder(points)

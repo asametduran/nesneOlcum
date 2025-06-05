@@ -19,7 +19,7 @@ while True:
     
     if len(finalContours) != 0:
         biggestContour = finalContours[0][2]
-        print(biggestContour) #u çıkıtyı alıyorsun 891,197   146,201     117,1669     934 1667       4 1 2
+        #print(biggestContour) #u çıkıtyı alıyorsun 891,197   146,201     117,1669     934 1667       4 1 2
         ut.warpImg(finalImg, biggestContour, 100, 100) # Warp the image using the biggest contour
 
     img = cv2.resize(img, (0,0),None,0.5,0.5)
