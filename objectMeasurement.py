@@ -30,8 +30,23 @@ while True:
             cannyThreshHold=[50, 50],
             minArea=2000,
             filter=4,
-            draw=True
+            draw=False # Get contours from the warped image
         )
+        for obj in finalContours2:
+                cv2.polylines(finalImg2,[obj[2]],True,(0,255,0),2)
+                nPoints = ut.reorder(obj[2])
+                nW = round((ut.findDistance(nPoints[0][0]//scale,nPoints[1][0]//scale)/10),1)
+                nH = round((ut.findDistance(nPoints[0][0]//scale,nPoints[2][0]//scale)/10),1)
+                cv2.arrowedLine(finalImg2, (nPoints[0][0][0], nPoints[0][0][1]), (nPoints[1][0][0], nPoints[1][0][1]),
+                                (255, 0, 255), 3, 8, 0, 0.05)
+                cv2.arrowedLine(finalImg2, (nPoints[0][0][0], nPoints[0][0][1]), (nPoints[2][0][0], nPoints[2][0][1]),
+                                (255, 0, 255), 3, 8, 0, 0.05)
+                x, y, w, h = obj[3]
+                cv2.putText(finalImg2, '{}cm'.format(nW), (x + 30, y - 10), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1.5,
+                            (255, 0, 255), 2)
+                cv2.putText(finalImg2, '{}cm'.format(nH), (x - 70, y + h // 2), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1.5,
+                            (255, 0, 255), 2)
+
         cv2.imshow('A4', finalImg2) # Show the warped image with contours
 
 

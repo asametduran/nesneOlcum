@@ -15,9 +15,9 @@ def getContours(img,cannyThreshHold=[100,100],showCanny=False, minArea=1000,filt
     for i in contours:
         area = cv2.contourArea(i)
         if area > minArea:
-            peri = cv2.arcLength(i, True) # Get perimeter, closed
-            approx = cv2.approxPolyDP(i, 0.02 * peri, True) # Approximate the contour to a polygon
-            boundingBox = cv2.boundingRect(approx) # Get bounding box
+            peri = cv2.arcLength(i, True)
+            approx = cv2.approxPolyDP(i, 0.02 * peri, True)
+            boundingBox = cv2.boundingRect(approx)
             if filter > 0:
                 if len(approx) == filter:
                     finalContours.append([len(approx), area, approx, boundingBox, i])
@@ -33,7 +33,7 @@ def getContours(img,cannyThreshHold=[100,100],showCanny=False, minArea=1000,filt
     return img, finalContours
 
 def reorder(myPoints):
-    print(myPoints.shape)
+    #print(myPoints.shape)
     myPointsNew = np.zeros_like(myPoints) # Create a new array with the same shape as myPoints
     myPoints = myPoints.reshape((4,2))
     add = myPoints.sum(1) # Sum of x and y coordinates
@@ -63,3 +63,6 @@ def warpImg(img, points, w, h, pad=20):
     imgWarp = imgWarp[pad:imgWarp.shape[0]-pad, pad:imgWarp.shape[1]-pad] # Crop the image to remove padding [h,w]
 
     return imgWarp
+
+def findDistance(pt1, pt2):
+    return np.linalg.norm(np.array(pt1) - np.array(pt2))
