@@ -44,9 +44,9 @@ def reorder(myPoints):
     myPointsNew[2] = myPoints[np.argmax(diff)] # Bottom left point
     return myPointsNew
 
-def warpImg(img, points, w, h):
+def warpImg(img, points, w, h, pad=20):
   
-    print(points) #[[ 891  187]]
+    #print(points) #[[ 891  187]]
     # [[ 146  201]]
     #
     # [[ 117 1669]]
@@ -54,4 +54,12 @@ def warpImg(img, points, w, h):
     # [[ 934 1667]]]
     #   (4, 1, 2)
 
-    reorder(points)
+    points = reorder(points)
+
+    pts1 = np.float32(points) # Convert points to float32
+    pts2 = np.float32([[0, 0], [w, 0], [0, h], [w, h]]) # Destination points
+    matrix = cv2.getPerspectiveTransform(pts1, pts2) # Get perspective transform matrix
+    imgWarp = cv2.warpPerspective(img, matrix, (w, h)) # Warp the image using the matrix
+    imgWarp = imgWarp[pad:imgWarp.shape[0]-pad, pad:imgWarp.shape[1]-pad] # Crop the image to remove padding [h,w]
+
+    return imgWarp
