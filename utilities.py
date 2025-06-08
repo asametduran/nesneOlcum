@@ -18,11 +18,11 @@ def getContours(img,cannyThreshHold=[100,100],showCanny=False, minArea=1000,filt
             peri = cv2.arcLength(i, True) # Get perimeter, closed
             approx = cv2.approxPolyDP(i, 0.02 * peri, True) # Approximate the contour to a polygon
             boundingBox = cv2.boundingRect(approx) # Get bounding box
-            if filter > 0 :
+            if filter > 0:
                 if len(approx) == filter:
-                    finalContours.append([len(approx),area, approx, boundingBox, i])
-                else:
-                    finalContours.append([len(approx),area, approx, boundingBox, i])
+                    finalContours.append([len(approx), area, approx, boundingBox, i])
+            else:
+                finalContours.append([len(approx), area, approx, boundingBox, i])
 
     finalContours = sorted(finalContours, key=lambda x: x[1], reverse=True) # Sort contours by area, largest first
 

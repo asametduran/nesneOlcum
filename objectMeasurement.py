@@ -24,7 +24,16 @@ while True:
         biggestContour = finalContours[0][2]
         #print(biggestContour) #u çıkıtyı alıyorsun 891,197   146,201     117,1669     934 1667       4 1 2
         imgWarp = ut.warpImg(finalImg, biggestContour, wP, hP) # Warp the image using the biggest contour
-        cv2.imshow('A4',imgWarp)
+        
+        finalImg2, finalContours2 = ut.getContours(
+            imgWarp,
+            cannyThreshHold=[50, 50],
+            minArea=2000,
+            filter=4,
+            draw=True
+        )
+        cv2.imshow('A4', finalImg2) # Show the warped image with contours
+
 
     img = cv2.resize(img, (0,0),None,0.5,0.5)
     cv2.imshow('Original',img)
